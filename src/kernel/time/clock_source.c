@@ -16,6 +16,9 @@
 #include <util/math.h>
 #include <kernel/time/clock_source.h>
 #include <kernel/time/time.h>
+#include "util/macro.h"
+
+#define PREF_CLOCK_SOURCE OPTION_GET(STRING,pref_cs)
 
 static DLIST_DEFINE(clock_source_list);
 
@@ -147,6 +150,13 @@ struct clock_source *clock_source_get_best(enum clock_source_property pr) {
 	dlist_foreach_entry(cs, &clock_source_list, lnk) {
 		hz = 0;
 		cycle_hz = cs->counter_device ? cs->counter_device->cycle_hz : 0;
+
+        if (strlen(MACRO_STRING(PREF_CLOCK_SOURCE))) {
+            if (!strcmp(MACRO_STRING(PREF_CLOCK_SOURCE), cs->name)) {
+                best = cs;
+                break;
+            }
+        }
 
 		switch (pr) {
 			case CS_ANY:

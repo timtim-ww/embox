@@ -16,6 +16,10 @@
 static struct itimer sys_timecounter;
 struct clock_source *kernel_clock_source;
 
+const char *ktime_get_sys_tc_name(){
+    return sys_timecounter.cs->name;
+}
+
 time64_t ktime_get_ns(void) {
 	struct timespec ts;
 

@@ -4,6 +4,7 @@ module clock_source {
 	source "clock_source.c"
 	@NoRuntime depends embox.mem.pool
 	
+    option string pref_cs = "tsc"
 	option number hnd_priority = 200
 	source "clock_tick.c"
 }
