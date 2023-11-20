@@ -8,6 +8,8 @@
 
 #define DEFAULT_N 5000
 
+const char *ktime_get_sys_tc_name();
+
 int main(int argc, char** argv) {
     struct timeval now;
     int N_times = 0;
@@ -26,5 +28,9 @@ int main(int argc, char** argv) {
         ktime_get_timeval(&now);
         printf("now.tv_sec=%ld\tnow.tv_usec=%ld\n", now.tv_sec, now.tv_usec);
     }
+
+    /*const char *sys_tm = ktime_get_sys_timecounter();*/
+    printf("clock source is %s\n", ktime_get_sys_tc_name());
+
     return 0;
 }
